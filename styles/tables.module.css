@@ -1,0 +1,33 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--green);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.row td,
+.row th {
+  padding: 0.5rem 1rem;
+  /* border: 1px solid #000; */
+}
+
+.link {
+  text-decoration: underline;
+}
+
+.present,
+.absent {
+  cursor: pointer;
+}
+
+.table tr:nth-child(even) {
+  background-color: var(--grey-800);
+}
+.table th {
+  background-color: var(--green);
+  color: var(--grey-900);
+}
+.table tr.present {
+  background-color: var(--blue);
+}

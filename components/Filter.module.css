@@ -1,0 +1,45 @@
+.filter {
+  /* border: var(--border); */
+  padding: 2rem;
+  margin-bottom: 2rem;
+  background-color: var(--grey-800);
+  border-radius: var(--radius);
+
+}
+
+
+
+.filter .title {
+  margin-bottom: 1rem;
+}
+
+.formControl {
+  margin-bottom: 1rem;
+}
+.formControl label,
+.formControl input {
+  display: block;
+}
+.formControl input,
+.formControl select {
+  padding: 0.5rem 1rem;
+}
+
+.formControl {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.radioControl {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+
+
+.dateFilters {
+  display: grid;
+  grid-template-columns: 80px 200px;
+}

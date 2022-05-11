@@ -1,0 +1,18 @@
+.sidebar {
+  display: none;
+  overflow: hidden;
+  background-color: var(--grey-800);
+}
+
+@media screen and (min-width: 800px) {
+  .sidebar {
+    display: block;
+    position: sticky;
+    top: 1rem;
+    /* height: 100vh; */
+    /* border-right: var(--border); */
+    /* border: var(--border); */
+    border-radius: var(--radius);
+    margin-top: 1rem;
+  }
+}

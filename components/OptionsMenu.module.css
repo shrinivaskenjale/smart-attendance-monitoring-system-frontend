@@ -1,0 +1,34 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+.window {
+  position: fixed;
+  top: 20%;
+  bottom: 20%;
+  left: 20%;
+  right: 20%;
+  z-index: 200;
+  background: var(--grey-800);
+  border-radius: var(--radius);
+  padding: 1rem 0;
+}
+
+.close {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 1rem 1rem 0;
+}
+
+.close svg {
+  font-size: 2rem;
+  transition: var(--transition);
+}
+.close svg:hover {
+  transform: scale(1.05);
+}

@@ -1,0 +1,46 @@
+.header {
+  padding: 0.5rem, 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: "menu logo .";
+  align-items: center;
+  height: var(--header-height);
+}
+.headerContainer {
+  /* border-bottom: var(--border); */
+  background-color: var(--grey-800);
+}
+.menu {
+  font-size: 3rem;
+  transition: var(--transition);
+  justify-self: self-start;
+  border-radius: 50%;
+  padding: 0.2rem;
+  grid-area: menu;
+}
+
+.menu:hover {
+  transform: scale(1.05);
+}
+.logo {
+  justify-self: center;
+  grid-area: logo;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 700;
+}
+.logoLarge {
+  display: none;
+}
+@media screen and (min-width: 800px) {
+  .menu {
+    display: none;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .logoLarge {
+    display: block;
+  }
+  .logoSmall {
+    display: none;
+  }
+}

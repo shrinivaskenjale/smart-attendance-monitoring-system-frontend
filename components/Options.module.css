@@ -1,0 +1,22 @@
+.optionsList {
+  display: flex;
+  flex-direction: column;
+}
+
+.optionsItem {
+  padding: 0.5rem 1rem;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.optionsItem:hover {
+  background: var(--grey-700);
+}
+
+.optionsList  button{
+  font-size: inherit;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
