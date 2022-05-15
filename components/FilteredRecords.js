@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/tables.module.css";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import BarGraph from "./BarGraph";
 import PieChart from "./PieChart";
 
@@ -131,5 +131,7 @@ const FilteredRecords = React.forwardRef((props, ref) => {
     </div>
   );
 });
+
+FilteredRecords.displayName = "FilteredRecords";
 
 export default FilteredRecords;
