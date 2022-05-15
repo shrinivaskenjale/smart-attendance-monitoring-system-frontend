@@ -1,12 +1,18 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useRef } from "react";
 import FilteredRecords from "../../components/FilteredRecords";
 import Filter from "../../components/Filter";
 import { AppContext } from "../../context/app-context";
 import AccessDenied from "../../components/AccessDenied";
 import { useRouter } from "next/router";
+import { useReactToPrint } from "react-to-print";
 
 const RecordsPage = (props) => {
   const router = useRouter();
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    // copyStyles: false,
+  });
   const { isAuth, user, token } = useContext(AppContext);
   const [filter, setFilter] = useState({
     date1: "",
@@ -107,6 +113,7 @@ const RecordsPage = (props) => {
       setMode("table");
     }
   };
+
   // ============================
   // side effects
   // ============================
@@ -114,9 +121,6 @@ const RecordsPage = (props) => {
   // ============================
   // render
   // ============================
-  // console.log(filter);
-  // console.log(records);
-  // console.log(conductedLecturesCount);
 
   if (!isAuth) {
     return <AccessDenied />;
@@ -154,10 +158,20 @@ const RecordsPage = (props) => {
           <span className="slider round"></span>
         </label>
       </div>
+
       {/* toggle ends */}
+
+      {mode === "table" && records && (
+        <div className="buttons">
+          <button className="btn success" onClick={handlePrint}>
+            Download
+          </button>
+        </div>
+      )}
 
       {records && (
         <FilteredRecords
+          ref={componentRef}
           records={records}
           conductedLecturesCount={conductedLecturesCount}
           type={type}

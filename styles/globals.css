@@ -95,8 +95,8 @@ svg {
   .mid {
     position: relative;
     display: grid;
-    /* auto */
-    grid-template-columns: minmax(200px, auto) 1fr;
+    /* grid-template-columns: minmax(200px, auto) 1fr; */
+    grid-template-columns: auto 1fr;
     gap: 1rem;
     align-items: flex-start;
     /* justify-items: center; */
@@ -289,3 +289,10 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 /* toggle end */
+
+@media print {
+  body {
+    background-color: #fff;
+    margin: 1rem;
+  }
+}

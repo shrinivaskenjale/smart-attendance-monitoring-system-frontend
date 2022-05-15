@@ -1,10 +1,11 @@
+import React from "react";
 import styles from "../styles/tables.module.css";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import BarGraph from "./BarGraph";
 import PieChart from "./PieChart";
 
-const FilteredRecords = (props) => {
+const FilteredRecords = React.forwardRef((props, ref) => {
   const {
     records,
     type,
@@ -66,7 +67,7 @@ const FilteredRecords = (props) => {
           <td>{date.toLocaleString("en-IN")}</td>
           {type === "all" && <td>{record.present.length}</td>}
           {!forStudent && (
-            <td>
+            <td className={styles.action}>
               <Link href={"/records/" + record._id}>
                 <a className={styles.link}>
                   {type === "single" ? "Edit" : "View"}
@@ -84,7 +85,7 @@ const FilteredRecords = (props) => {
           <tr className={styles.row}>
             <th>Date</th>
             {type === "all" && <th>Count</th>}
-            {!forStudent && <th>Action</th>}
+            {!forStudent && <th className={styles.action}>Action</th>}
           </tr>
         </thead>
         <tbody>{recordsList}</tbody>
@@ -124,7 +125,11 @@ const FilteredRecords = (props) => {
     }
   }
 
-  return <div>{content}</div>;
-};
+  return (
+    <div className={styles.filteredContent} ref={ref}>
+      {content}
+    </div>
+  );
+});
 
 export default FilteredRecords;

@@ -31,3 +31,24 @@
 .table tr.present {
   background-color: var(--blue);
 }
+
+@media print {
+  .table,
+  .table th,
+  .table td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  .table tr:nth-child(even) {
+    background-color: transparent;
+  }
+  .table th {
+    background-color: #fff;
+  }
+  .table td {
+    color: #000;
+  }
+  .action {
+    display: none;
+  }
+}
