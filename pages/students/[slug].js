@@ -1,5 +1,5 @@
 import Form from "../../components/Form";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { useRouter } from "next/router";
 import AccessDenied from "../../components/AccessDenied";
 import { AppContext } from "../../context/app-context";
@@ -16,7 +16,7 @@ const DetailsPage = (props) => {
   // methods
   // ============================
 
-  const fetchStudent = async () => {
+  const fetchStudent = useCallback(async () => {
     setLoading(true);
     setMessage(null);
     try {
@@ -44,7 +44,7 @@ const DetailsPage = (props) => {
       setMessage(error.message);
     }
     setLoading(false);
-  };
+  }, [token, router.query.slug]);
   // ============================
   // side effects
   // ============================
@@ -53,7 +53,7 @@ const DetailsPage = (props) => {
       return;
     }
     fetchStudent();
-  }, [router.isReady]);
+  }, [router.isReady, fetchStudent]);
 
   // ============================
   // render

@@ -17,7 +17,6 @@ const ResetRequestPage = (props) => {
     event.preventDefault();
     setLoading(true);
     setMessage(null);
-    console.log(userId);
     try {
       const res = await fetch(
         process.env.NEXT_PUBLIC_BACKEND_BASE_URL +
@@ -55,10 +54,9 @@ const ResetRequestPage = (props) => {
     if (!router.isReady) {
       return;
     }
-    console.log(router.query.userId, router.query.token);
     setUserId(router.query.userId);
     setToken(router.query.token);
-  }, [router.isReady]);
+  }, [router.isReady, router.query.userId, router.query.token]);
 
   //   render
   let content;

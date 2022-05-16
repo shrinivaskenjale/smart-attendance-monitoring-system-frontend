@@ -1,7 +1,6 @@
 import styles from "../styles/HomePage.module.css";
-import { options } from "../data/options";
-
-const optionsArr = options.admin;
+// import Image from "next/image";
+// import landingImage from "../public/phone.svg";
 
 const HomePage = (props) => {
   return (
@@ -17,6 +16,7 @@ const HomePage = (props) => {
           </p>
         </div>
         <img className={styles.image} src="/phone.svg" alt="phone" />
+        {/* <Image src={landingImage} className={styles.image} /> */}
       </div>
     </div>
   );

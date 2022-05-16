@@ -44,7 +44,6 @@ const AppContextProvider = (props) => {
     let success = false;
 
     try {
-      console.log(process.env.NEXT_PUBLIC_BACKEND_BASE_URL);
       const res = await fetch(
         process.env.NEXT_PUBLIC_BACKEND_BASE_URL + "/auth/login",
         {
@@ -82,7 +81,7 @@ const AppContextProvider = (props) => {
         success = true;
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setIsAuth(false);
       setAuthMessage(error.message);
     }
@@ -102,7 +101,6 @@ const AppContextProvider = (props) => {
       return;
     }
     const user = JSON.parse(localStorage.getItem("user"));
-    // console.log(user, typeof user);
     const remainingMilliseconds =
       new Date(expiryDate).getTime() - new Date().getTime();
     setIsAuth(true);

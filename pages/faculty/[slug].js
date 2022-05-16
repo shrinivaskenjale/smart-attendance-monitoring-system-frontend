@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import Form from "../../components/Form";
 import { AppContext } from "../../context/app-context";
 import AccessDenied from "../../components/AccessDenied";
@@ -15,10 +15,9 @@ const DetailsPage = (props) => {
   // methods
   // ============================
 
-  const fetchFaculty = async () => {
+  const fetchFaculty = useCallback(async () => {
     setLoading(true);
     setMessage(null);
-    console.log(router.query.slug);
     try {
       const res = await fetch(
         process.env.NEXT_PUBLIC_BACKEND_BASE_URL +
@@ -42,7 +41,7 @@ const DetailsPage = (props) => {
       setMessage(error.message);
     }
     setLoading(false);
-  };
+  }, [token, router.query.slug]);
   // ============================
   // side effects
   // ============================
@@ -51,7 +50,7 @@ const DetailsPage = (props) => {
       return;
     }
     fetchFaculty();
-  }, [router.isReady]);
+  }, [router.isReady, fetchFaculty]);
 
   // ============================
   // render

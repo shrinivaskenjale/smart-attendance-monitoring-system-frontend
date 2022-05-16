@@ -1,5 +1,5 @@
 import styles from "./Filter.module.css";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import { AppContext } from "../context/app-context";
 
 const Filter = (props) => {
@@ -41,7 +41,7 @@ const Filter = (props) => {
     fetchRecords();
   };
 
-  const fetchOptionsList = async () => {
+  const fetchOptionsList = useCallback(async () => {
     // setLoading(true);
     // setMessage(null);
     let endpoint;
@@ -72,14 +72,14 @@ const Filter = (props) => {
       // setMessage(error.message);
     }
     // setLoading(false);
-  };
+  }, [forStudent, setMessage, token]);
 
   // ============================
   // side effects
   // ============================
   useEffect(() => {
     fetchOptionsList();
-  }, []);
+  }, [fetchOptionsList]);
 
   // ============================
   // render

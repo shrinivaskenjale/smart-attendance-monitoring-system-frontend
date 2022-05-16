@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { AppContext } from "../../../context/app-context";
 import styles from "../../../styles/tables.module.css";
 import AccessDenied from "../../../components/AccessDenied";
@@ -16,7 +16,7 @@ const EditRecordPage = (props) => {
   // methods
   // ============================
 
-  const fetchRecord = async () => {
+  const fetchRecord = useCallback(async () => {
     setLoading(true);
     setMessage(null);
 
@@ -48,7 +48,7 @@ const EditRecordPage = (props) => {
     }
 
     setLoading(false);
-  };
+  }, [router.query.slug, token]);
 
   const toggleStatusHandler = (id) => {
     let updatedRecord = record.map((student) => {
@@ -105,7 +105,7 @@ const EditRecordPage = (props) => {
       return;
     }
     fetchRecord();
-  }, [router.isReady]);
+  }, [router.isReady, fetchRecord]);
 
   // ===================================
   // render
@@ -114,8 +114,6 @@ const EditRecordPage = (props) => {
   if (!isAuth || user.type !== "faculty") {
     return <AccessDenied />;
   }
-
-  console.log(record);
 
   let content = <p className="msg">Record not found.</p>;
 

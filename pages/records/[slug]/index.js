@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { AppContext } from "../../../context/app-context";
 import AccessDenied from "../../../components/AccessDenied";
 import styles from "../../../styles/tables.module.css";
@@ -17,7 +17,7 @@ const SingleRecordsPage = (props) => {
   // methods
   // ============================
 
-  const fetchRecord = async () => {
+  const fetchRecord = useCallback(async () => {
     setLoading(true);
     setMessage(null);
 
@@ -48,7 +48,7 @@ const SingleRecordsPage = (props) => {
     }
 
     setLoading(false);
-  };
+  }, [router.query.slug, token]);
 
   // ============================
   // side effects
@@ -58,7 +58,7 @@ const SingleRecordsPage = (props) => {
       return;
     }
     fetchRecord();
-  }, [router.isReady]);
+  }, [router.isReady, fetchRecord]);
 
   // ===================================
   // render
@@ -67,8 +67,6 @@ const SingleRecordsPage = (props) => {
   if (!isAuth || user.type !== "faculty") {
     return <AccessDenied />;
   }
-
-  console.log(record);
 
   let content = <p className="msg">Record not found.</p>;
 
@@ -115,8 +113,10 @@ const SingleRecordsPage = (props) => {
       <h2 className="title">Records</h2>
       <h4>{record && date.toLocaleString("en-IN")}</h4>
       <div className="buttons">
-        <Link href={`/records/${router.query.slug}/edit`}>
-          <button className="btn danger">Edit</button>
+        <Link href={`/records/${router.query.slug}/edit`} passHref>
+          <a>
+            <button className="btn danger">Edit</button>
+          </a>
         </Link>
       </div>
       {content}

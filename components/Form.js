@@ -126,7 +126,7 @@ const Form = (props) => {
       setImageUrl(fetchedUser.imageUrl);
       setRollNumber(fetchedUser.rollNumber);
     }
-  }, []);
+  }, [fetchedUser]);
 
   // =============================
   // render

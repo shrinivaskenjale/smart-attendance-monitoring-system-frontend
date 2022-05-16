@@ -26,36 +26,7 @@ const FilteredRecords = React.forwardRef((props, ref) => {
   });
   // state end
 
-  // side effects
-  // useEffect(() => {
-  //   if (mode !== "graph") {
-  //     return;
-  //   }
-  //   if (type === "all") {
-  //     const labels = [];
-  //     const datasets = [
-  //       {
-  //         label: "Present",
-  //         data: [],
-  //         backgroundColor: "rgba(255, 99, 132, 0.5)",
-  //       },
-  //       {
-  //         label: "Absent",
-  //         data: [],
-  //         backgroundColor: "rgba(53, 162, 235, 0.5)",
-  //       },
-  //     ];
-
-  //     records.forEach((record) => {
-  //       labels.push(record.createdAt);
-  //       datasets[0].push(record.present.length);
-  //       datasets[1].push(record.present.length);
-  //     });
-  //   }
-  // }, [mode, type, records]);
-
   // render
-  console.log(studentsCount, conductedLecturesCount);
 
   let content = <p className="msg">No recods found.</p>;
 
@@ -105,12 +76,12 @@ const FilteredRecords = React.forwardRef((props, ref) => {
         {
           label: "Present",
           data: [],
-          backgroundColor: "rgba(255, 99, 132, 0.5)",
+          backgroundColor: "rgba(53, 162, 235, 0.5)",
         },
         {
           label: "Absent",
           data: [],
-          backgroundColor: "rgba(53, 162, 235, 0.5)",
+          backgroundColor: "rgba(255, 99, 132, 0.5)",
         },
       ];
 

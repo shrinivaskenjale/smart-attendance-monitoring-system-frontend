@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "../../styles/tables.module.css";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import { AppContext } from "../../context/app-context";
 import AccessDenied from "../../components/AccessDenied";
 
@@ -13,7 +13,7 @@ const StudentsPage = (props) => {
   // ===================================
   // methods
   // ===================================
-  const fetchStudents = async () => {
+  const fetchStudents = useCallback(async () => {
     setLoading(true);
     setMessage(null);
     try {
@@ -37,7 +37,7 @@ const StudentsPage = (props) => {
       setMessage(error.message);
     }
     setLoading(false);
-  };
+  }, [token]);
 
   const clearStudentsHandler = async (e) => {
     setLoading(true);
@@ -73,7 +73,7 @@ const StudentsPage = (props) => {
   // ===================================
   useEffect(() => {
     fetchStudents();
-  }, []);
+  }, [fetchStudents]);
 
   // ===================================
   // render
