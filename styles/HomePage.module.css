@@ -1,4 +1,51 @@
-.optionsList {
-  max-width: 400px;
-  margin: 2rem auto;
+.banner {
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+  padding: 2rem;
+  /* padding-bottom: 0rem; */
+}
+.banner span {
+  color: var(--green);
+}
+.text {
+  line-height: 1.5;
+}
+.text h2 {
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 5px;
+}
+.text p {
+  text-align: center;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.image {
+  width: 250px;
+  height: 80%;
+  object-fit: contain;
+  /* object-position: 30% 100%; */
+}
+
+@media screen and (min-width: 1000px) {
+  .banner {
+    flex-direction: row;
+    gap: 3rem;
+  }
+  .image {
+    animation: move 4s linear infinite alternate-reverse;
+  }
+}
+
+@keyframes move {
+  0% {
+    transform: rotateZ(-3deg);
+  }
+  100% {
+    transform: rotateZ(3deg);
+  }
 }
