@@ -1,5 +1,5 @@
 import styles from "./Form.module.css";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "../context/app-context";
 
@@ -10,8 +10,10 @@ const Form = (props) => {
   const [password, setPassword] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [rollNumber, setRollNumber] = useState("");
+  const [classId, setClassId] = useState('')
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
+  const [optionsList, setOptionsList] = useState([]);
 
   const router = useRouter();
 
@@ -28,11 +30,20 @@ const Form = (props) => {
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     // e.target.disabled = true;
+
+    if (forUser === "student") {
+      if (!classId) {
+        setMessage("Choose a class from dropdown.");
+        return;
+      }
+    }
+
     let reqBody = {
       name,
       email,
       imageUrl,
       rollNumber,
+      division: classId,
       password,
       type: forUser,
     };
@@ -88,8 +99,8 @@ const Form = (props) => {
     try {
       const res = await fetch(
         process.env.NEXT_PUBLIC_BACKEND_BASE_URL +
-          "/admin/delete-user/" +
-          fetchedUser._id,
+        "/admin/delete-user/" +
+        fetchedUser._id,
         {
           method: "DELETE",
           headers: {
@@ -116,6 +127,31 @@ const Form = (props) => {
     setLoading(false);
   };
 
+  const fetchOptionsList = useCallback(async () => {
+    // setLoading(true);
+    // setMessage(null);
+    let endpoint = process.env.NEXT_PUBLIC_BACKEND_BASE_URL + "/get-classes";
+
+    try {
+      const res = await fetch(endpoint, {
+        headers: { Authorization: "Bearer " + token },
+      });
+      if (res.status === 500) {
+        throw new Error("Something went wrong.");
+      }
+      const data = await res.json();
+      if (res.status >= 300) {
+        setMessage(data.message);
+      } else {
+        // setMessage(data.message);
+        setOptionsList(data.divisions);
+      }
+    } catch (error) {
+      // setMessage(error.message);
+    }
+    // setLoading(false);
+  }, [setMessage, token]);
+
   // =============================
   // side effects
   // =============================
@@ -125,8 +161,13 @@ const Form = (props) => {
       setEmail(fetchedUser.email);
       setImageUrl(fetchedUser.imageUrl);
       setRollNumber(fetchedUser.rollNumber);
+      setClassId(fetchedUser.division)
     }
   }, [fetchedUser]);
+
+  useEffect(() => {
+    fetchOptionsList();
+  }, [fetchOptionsList]);
 
   // =============================
   // render
@@ -140,6 +181,15 @@ const Form = (props) => {
   if (loading) {
     content = <p className="msg">Loading...</p>;
   }
+
+
+  const options = optionsList.map((division) => {
+    return (
+      <option key={division._id} value={division._id}>{division.division}
+      </option>
+    );
+  });
+
 
   return (
     <>
@@ -229,6 +279,24 @@ const Form = (props) => {
             />
           </div>
         )}
+
+
+       
+        {forUser === "student" && (
+          <div className={styles.formControl}>
+            <select
+              disabled={fetchedUser && user.type !== "admin"}
+              name="classId"
+              value={classId}
+              onChange={(e) => { setClassId(e.target.value) }}
+            >
+              <option value="">--Please choose the class--</option>
+              {options}
+            </select>
+          </div>
+        )}
+
+       
 
         {user.type === "admin" && (
           <div className="buttons">

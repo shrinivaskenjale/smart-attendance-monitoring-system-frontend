@@ -9,7 +9,7 @@ const Filter = (props) => {
   const [optionsList, setOptionsList] = useState([]);
 
   // ============================
-  // methods
+  // methods 
   // ============================
   const searchHandler = (e) => {
     e.preventDefault();
@@ -87,9 +87,8 @@ const Filter = (props) => {
 
   const options = optionsList.map((user) => {
     return (
-      <option key={user._id} value={user._id}>{`${user.name} ${
-        forStudent ? "" : `(${user.rollNumber})`
-      } `}</option>
+      <option key={user._id} value={user._id}>{`${user.name} ${forStudent ? "" : `(${user.rollNumber})`
+        } `}</option>
     );
   });
 
