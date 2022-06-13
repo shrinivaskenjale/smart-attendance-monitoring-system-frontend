@@ -43,3 +43,7 @@
   display: grid;
   grid-template-columns: 80px 200px;
 }
+.classFilters {
+  display: grid;
+  grid-template-columns: 80px auto;
+}

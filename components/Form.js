@@ -10,7 +10,7 @@ const Form = (props) => {
   const [password, setPassword] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [rollNumber, setRollNumber] = useState("");
-  const [classId, setClassId] = useState('')
+  const [divisionId, setDivisionId] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [optionsList, setOptionsList] = useState([]);
@@ -32,7 +32,7 @@ const Form = (props) => {
     // e.target.disabled = true;
 
     if (forUser === "student") {
-      if (!classId) {
+      if (!divisionId) {
         setMessage("Choose a class from dropdown.");
         return;
       }
@@ -43,7 +43,7 @@ const Form = (props) => {
       email,
       imageUrl,
       rollNumber,
-      division: classId,
+      division: divisionId,
       password,
       type: forUser,
     };
@@ -99,8 +99,8 @@ const Form = (props) => {
     try {
       const res = await fetch(
         process.env.NEXT_PUBLIC_BACKEND_BASE_URL +
-        "/admin/delete-user/" +
-        fetchedUser._id,
+          "/admin/delete-user/" +
+          fetchedUser._id,
         {
           method: "DELETE",
           headers: {
@@ -150,7 +150,7 @@ const Form = (props) => {
       // setMessage(error.message);
     }
     // setLoading(false);
-  }, [setMessage, token]);
+  }, [token]);
 
   // =============================
   // side effects
@@ -161,7 +161,7 @@ const Form = (props) => {
       setEmail(fetchedUser.email);
       setImageUrl(fetchedUser.imageUrl);
       setRollNumber(fetchedUser.rollNumber);
-      setClassId(fetchedUser.division)
+      setDivisionId(fetchedUser.division);
     }
   }, [fetchedUser]);
 
@@ -182,14 +182,13 @@ const Form = (props) => {
     content = <p className="msg">Loading...</p>;
   }
 
-
-  const options = optionsList.map((division) => {
+  const divisionOptions = optionsList.map((division) => {
     return (
-      <option key={division._id} value={division._id}>{division.division}
+      <option key={division._id} value={division._id}>
+        {division.divisionName}
       </option>
     );
   });
-
 
   return (
     <>
@@ -280,23 +279,25 @@ const Form = (props) => {
           </div>
         )}
 
-
-       
         {forUser === "student" && (
           <div className={styles.formControl}>
+            <label htmlFor="divisionId" className={styles.label}>
+              Class
+            </label>
             <select
+              id="divisionId"
               disabled={fetchedUser && user.type !== "admin"}
-              name="classId"
-              value={classId}
-              onChange={(e) => { setClassId(e.target.value) }}
+              name="divisionId"
+              value={divisionId}
+              onChange={(e) => {
+                setDivisionId(e.target.value);
+              }}
             >
               <option value="">--Please choose the class--</option>
-              {options}
+              {divisionOptions}
             </select>
           </div>
         )}
-
-       
 
         {user.type === "admin" && (
           <div className="buttons">

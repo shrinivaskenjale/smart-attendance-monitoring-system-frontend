@@ -5,6 +5,8 @@ import { AppContext } from "../../context/app-context";
 import AccessDenied from "../../components/AccessDenied";
 import { useRouter } from "next/router";
 import { useReactToPrint } from "react-to-print";
+import StudentFilter from "../../components/StudentFilter";
+import FacultyFilter from "../../components/FacultyFilter";
 
 const RecordsPage = (props) => {
   const router = useRouter();
@@ -14,12 +16,6 @@ const RecordsPage = (props) => {
     // copyStyles: false,
   });
   const { isAuth, user, token } = useContext(AppContext);
-  const [filter, setFilter] = useState({
-    date1: "",
-    date2: "",
-    recordsFor: "",
-    userId: "",
-  });
 
   const [records, setRecords] = useState(null);
   const [conductedLecturesCount, setConductedLecturesCount] = useState(0);
@@ -39,7 +35,7 @@ const RecordsPage = (props) => {
   // methods
   // ============================
 
-  const fetchRecords = async () => {
+  const fetchRecords = async (filter) => {
     setLoading(true);
     setMessage(null);
 
@@ -50,24 +46,28 @@ const RecordsPage = (props) => {
       body = {
         date1: filter.date1,
         date2: filter.date2,
-        facultyId: user._id,
+        divisionId: filter.divisionId,
+        subjectId: filter.subjectId,
+        studentId: filter.studentId,
       };
       if (filter.recordsFor === "single") {
         endpoint =
           process.env.NEXT_PUBLIC_BACKEND_BASE_URL +
           "/faculty/records/students/" +
-          filter.userId;
+          user._id;
       } else {
         endpoint =
-          process.env.NEXT_PUBLIC_BACKEND_BASE_URL + "/faculty/records";
+          process.env.NEXT_PUBLIC_BACKEND_BASE_URL +
+          "/faculty/records/faculty/" +
+          user._id;
       }
     } else if (user.type === "student") {
       body = {
         date1: filter.date1,
         date2: filter.date2,
-        facultyId: filter.userId,
+        subjectId: filter.subjectId,
       };
-      if (filter.userId) {
+      if (filter.subjectId) {
         endpoint =
           process.env.NEXT_PUBLIC_BACKEND_BASE_URL +
           "/student/records/students/" +
@@ -142,13 +142,20 @@ const RecordsPage = (props) => {
     <div className="main-content">
       <h2 className="title">Records</h2>
       {content}
-      <Filter
+      {/* <Filter
         inputChangeHandler={inputChangeHandler}
         filter={filter}
         fetchRecords={fetchRecords}
         forStudent={user.type === "student"}
         setMessage={setMessage}
-      />
+      /> */}
+
+      {user.type === "student" && (
+        <StudentFilter setMessage={setMessage} fetchRecords={fetchRecords} />
+      )}
+      {user.type === "faculty" && (
+        <FacultyFilter setMessage={setMessage} fetchRecords={fetchRecords} />
+      )}
 
       {/* toggle  */}
       <div className="toggle">
