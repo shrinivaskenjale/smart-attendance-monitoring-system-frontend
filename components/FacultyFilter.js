@@ -3,7 +3,7 @@ import { useEffect, useState, useContext, useCallback } from "react";
 import { AppContext } from "../context/app-context";
 
 const FacultyFilter = (props) => {
-  const { token, user } = useContext(AppContext);
+  const { token } = useContext(AppContext);
   const [date1, setDate1] = useState("");
   const [date2, setDate2] = useState("");
   const [divisionId, setDivisionId] = useState("");
@@ -101,7 +101,7 @@ const FacultyFilter = (props) => {
       }
       // setLoading(false);
     },
-    [setMessage]
+    [setMessage, token]
   );
 
   // ============================

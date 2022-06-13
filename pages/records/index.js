@@ -1,6 +1,5 @@
 import { useState, useContext, useRef } from "react";
 import FilteredRecords from "../../components/FilteredRecords";
-import Filter from "../../components/Filter";
 import { AppContext } from "../../context/app-context";
 import AccessDenied from "../../components/AccessDenied";
 import { useRouter } from "next/router";

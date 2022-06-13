@@ -55,7 +55,7 @@ const StudentFilter = (props) => {
       // setMessage(error.message);
     }
     // setLoading(false);
-  }, [setMessage]);
+  }, [setMessage, user.divisionId]);
 
   // ============================
   // side effects
