@@ -24,12 +24,6 @@ const RecordsPage = (props) => {
   const [message, setMessage] = useState(null);
   const [mode, setMode] = useState("table");
 
-  const inputChangeHandler = (e) => {
-    const inputName = e.target.name;
-    const inputValue = e.target.value;
-    setFilter({ ...filter, [inputName]: inputValue });
-  };
-
   // ============================
   // methods
   // ============================
@@ -65,6 +59,7 @@ const RecordsPage = (props) => {
         date1: filter.date1,
         date2: filter.date2,
         subjectId: filter.subjectId,
+        divisionId: filter.divisionId,
       };
       if (filter.subjectId) {
         endpoint =

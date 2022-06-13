@@ -28,7 +28,7 @@ const StudentFilter = (props) => {
       return;
     }
 
-    fetchRecords({ date1, date2, subjectId });
+    fetchRecords({ date1, date2, subjectId, divisionId: user.divisionId });
   };
 
   const fetchOptionsList = useCallback(async () => {
