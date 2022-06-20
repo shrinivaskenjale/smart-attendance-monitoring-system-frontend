@@ -178,9 +178,9 @@ const FacultyFilter = (props) => {
             type="date"
             name="date2"
             id="date2"
-            value={date1}
+            value={date2}
             onChange={(e) => {
-              setDate1(e.target.value);
+              setDate2(e.target.value);
             }}
           />
         </div>
