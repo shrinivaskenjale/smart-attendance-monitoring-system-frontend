@@ -2,10 +2,32 @@ import { GiTeacher } from "react-icons/gi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { CgNotes } from "react-icons/cg";
-import { BsFillPersonPlusFill } from "react-icons/bs";
+import { BsFillPersonPlusFill, BsPlusCircle } from "react-icons/bs";
+import { SiGoogleclassroom } from "react-icons/si";
+import { MdOutlineClass } from "react-icons/md";
 
 export const options = {
   admin: [
+    {
+      text: "faculty",
+      path: "/faculty",
+      icon: <GiTeacher />,
+    },
+    {
+      text: "students",
+      path: "/students",
+      icon: <FaChalkboardTeacher />,
+    },
+    {
+      text: "classes",
+      path: "/classes",
+      icon: <SiGoogleclassroom />,
+    },
+    {
+      text: "subjects",
+      path: "/subjects",
+      icon: <MdOutlineClass />,
+    },
     {
       text: "add faculty",
       path: "/faculty/new",
@@ -16,16 +38,15 @@ export const options = {
       path: "/students/new",
       icon: <BsFillPersonPlusFill />,
     },
-
     {
-      text: "students",
-      path: "/students",
-      icon: <FaChalkboardTeacher />,
+      text: "add class",
+      path: "/classes/new",
+      icon: <BsPlusCircle />,
     },
     {
-      text: "faculty",
-      path: "/faculty",
-      icon: <GiTeacher />,
+      text: "add subject",
+      path: "/subjects/new",
+      icon: <BsPlusCircle />,
     },
   ],
   faculty: [
